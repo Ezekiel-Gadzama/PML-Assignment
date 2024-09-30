@@ -25,8 +25,7 @@ if st.button('Predict'):
     }
     
     # Send the input data to the FastAPI endpoint
-    response = requests.post('http://api:8000/predict', json=input_data)
-    
+    response = requests.post('http://fastapi:80/predict', json=input_data)
     # Display the prediction result
     prediction = response.json()
     st.write(f"Survived: {'Yes' if prediction['Survived'] == 1 else 'No'}")
