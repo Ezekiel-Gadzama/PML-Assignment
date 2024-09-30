@@ -1,0 +1,26 @@
+services:
+  fastapi:
+    build:
+      context: ./
+      dockerfile: ./code/deployment/api/Dockerfile.fastapi
+    container_name: fastapi
+    volumes:
+      - ./code:/app/code
+      - ./models:/app/models
+      - ./data:/app/data
+    ports:
+      - "80:80"
+
+  streamlit:
+    build:
+      context: ./
+      dockerfile: ./code/deployment/app/Dockerfile.streamlit
+    container_name: streamlit
+    volumes:
+      - ./code:/app/code
+      - ./models:/app/models
+      - ./data:/app/data
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi

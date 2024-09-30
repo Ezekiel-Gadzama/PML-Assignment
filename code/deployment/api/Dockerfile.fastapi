@@ -1,0 +1,19 @@
+# Use an official Python runtime as a parent image
+FROM python:3.9
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy everything from the PML Assignment 1 directory to /app
+COPY . /app
+# # Optional: Print contents for verification
+RUN echo "Contents of /app:" && ls -la /app
+
+# Install any necessary packages
+RUN pip install --no-cache-dir fastapi[all] joblib scikit-learn
+
+# Expose port 80 to the outside world
+EXPOSE 80
+# CMD ["/bin/sh", "-c", "sleep 1000"]
+# Run the FastAPI server with Uvicorn
+CMD ["uvicorn", "deployment.api:app", "--host", "0.0.0.0", "--port", "80"]
